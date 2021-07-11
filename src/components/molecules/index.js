@@ -5,6 +5,7 @@ import HomeTabSection from "./HomeTabSection";
 import HomeProfile from "./HomeProfile";
 import Rating from "./Rating";
 import ListFoods from "./ListFoods";
+import Counter from "./Counter";
 
 export {
     Header,
@@ -14,4 +15,5 @@ export {
     HomeProfile,
     Rating,
     ListFoods,
+    Counter,
 }

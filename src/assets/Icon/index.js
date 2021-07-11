@@ -8,6 +8,8 @@ import IcProfileOn from './icon-profile-on.svg'
 import IcStarOn from './icon-star-on.svg'
 import IcStarOff from './icon-star-off.svg'
 import IcBackDetail from './ic-back-detail.svg'
+import IcMin from './ic-btn-min.svg'
+import IcPlus from './ic-btn-add.svg'
 
 export {
     IcBack,
@@ -20,4 +22,6 @@ export {
     IcStarOn,
     IcStarOff,
     IcBackDetail,
+    IcMin,
+    IcPlus,
 };
