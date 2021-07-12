@@ -1,15 +1,21 @@
 import React from 'react';
 import {StyleSheet, Text, View, useWindowDimensions} from 'react-native';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
-import { Food1, Food2, Food3, Food4 } from '../../../assets';
+import {Food1, Food2, Food3, Food4} from '../../../assets';
 import ListFoods from '../ListFoods';
-import {useNavigation} from '@react-navigation/native'
+import {useNavigation} from '@react-navigation/native';
 
 const renderTabBar = props => (
   <TabBar
     {...props}
     indicatorStyle={{backgroundColor: 'black', height: 3}}
-    style={{backgroundColor: 'white', elevation:0, shadowOpacity:0, borderBottomColor:'#F2F2F2', borderBottomWidth:1}}
+    style={{
+      backgroundColor: 'white',
+      elevation: 0,
+      shadowOpacity: 0,
+      borderBottomColor: '#F2F2F2',
+      borderBottomWidth: 1,
+    }}
     tabStyle={{width: 'auto'}}
     renderLabel={({route, focused, color}) => (
       <Text
@@ -26,14 +32,42 @@ const renderTabBar = props => (
 const NewTaste = () => {
   const navigation = useNavigation();
   return (
-    <View style={{paddingTop: 8}}>
-      <ListFoods image={Food1} onPress={() => navigation.navigate('FoodDetail')}/>
-      <ListFoods image={Food2} onPress={() => navigation.navigate('FoodDetail')}/>
-      <ListFoods image={Food3} onPress={() => navigation.navigate('FoodDetail')}/>
-      <ListFoods image={Food4} onPress={() => navigation.navigate('FoodDetail')}/>
-      <ListFoods image={Food4} onPress={() => navigation.navigate('FoodDetail')}/>
-      <ListFoods image={Food4} onPress={() => navigation.navigate('FoodDetail')}/>
-      <ListFoods image={Food4} onPress={() => navigation.navigate('FoodDetail')}/>
+    <View style={{paddingTop: 8, paddingHorizontal:24}}>
+      <ListFoods
+        rating={3}
+        image={Food1}
+        onPress={() => navigation.navigate('FoodDetail')}
+      />
+      <ListFoods
+        rating={3}
+        image={Food2}
+        onPress={() => navigation.navigate('FoodDetail')}
+      />
+      <ListFoods
+        rating={3}
+        image={Food3}
+        onPress={() => navigation.navigate('FoodDetail')}
+      />
+      <ListFoods
+        rating={3}
+        image={Food4}
+        onPress={() => navigation.navigate('FoodDetail')}
+      />
+      <ListFoods
+        rating={3}
+        image={Food4}
+        onPress={() => navigation.navigate('FoodDetail')}
+      />
+      <ListFoods
+        rating={3}
+        image={Food4}
+        onPress={() => navigation.navigate('FoodDetail')}
+      />
+      <ListFoods
+        rating={3}
+        image={Food4}
+        onPress={() => navigation.navigate('FoodDetail')}
+      />
     </View>
   );
 };
@@ -41,29 +75,73 @@ const NewTaste = () => {
 const Popular = () => {
   const navigation = useNavigation();
   return (
-    <View style={{paddingTop: 8}}>
-      <ListFoods image={Food1} onPress={() => navigation.navigate('FoodDetail')}/>
-      <ListFoods image={Food2} onPress={() => navigation.navigate('FoodDetail')}/>
-      <ListFoods image={Food3} onPress={() => navigation.navigate('FoodDetail')}/>
-      <ListFoods image={Food4} onPress={() => navigation.navigate('FoodDetail')}/>
-      <ListFoods image={Food4} onPress={() => navigation.navigate('FoodDetail')}/>
-      <ListFoods image={Food4} onPress={() => navigation.navigate('FoodDetail')}/>
-      <ListFoods image={Food4} onPress={() => navigation.navigate('FoodDetail')}/>
+    <View style={{paddingTop: 8, paddingHorizontal:24}}>
+      <ListFoods
+        rating={3}
+        image={Food1}
+        onPress={() => navigation.navigate('FoodDetail')}
+      />
+      <ListFoods
+        rating={3}
+        image={Food2}
+        onPress={() => navigation.navigate('FoodDetail')}
+      />
+      <ListFoods
+        rating={3}
+        image={Food3}
+        onPress={() => navigation.navigate('FoodDetail')}
+      />
+      <ListFoods
+        rating={3}
+        image={Food4}
+        onPress={() => navigation.navigate('FoodDetail')}
+      />
+      <ListFoods
+        rating={3}
+        image={Food4}
+        onPress={() => navigation.navigate('FoodDetail')}
+      />
+      <ListFoods
+        rating={3}
+        image={Food4}
+        onPress={() => navigation.navigate('FoodDetail')}
+      />
+      <ListFoods
+        rating={3}
+        image={Food4}
+        onPress={() => navigation.navigate('FoodDetail')}
+      />
     </View>
   );
-  };
+};
 
-  const Recommended = () => {
-    const navigation = useNavigation();
-    return (
-      <View style={{paddingTop: 8}}>
-        <ListFoods image={Food1} onPress={() => navigation.navigate('FoodDetail')}/>
-        <ListFoods image={Food2} onPress={() => navigation.navigate('FoodDetail')}/>
-        <ListFoods image={Food3} onPress={() => navigation.navigate('FoodDetail')}/>
-        <ListFoods image={Food4} onPress={() => navigation.navigate('FoodDetail')}/>
-      </View>
-    );
-    };
+const Recommended = () => {
+  const navigation = useNavigation();
+  return (
+    <View style={{paddingTop: 8, paddingHorizontal:24}}>
+      <ListFoods
+        rating={3}
+        image={Food1}
+        onPress={() => navigation.navigate('FoodDetail')}
+      />
+      <ListFoods
+        rating={3}
+        image={Food2}
+        onPress={() => navigation.navigate('FoodDetail')}
+      />
+      <ListFoods
+        rating={3}
+        image={Food3}
+        onPress={() => navigation.navigate('FoodDetail')}
+      />
+      <ListFoods
+        rating={3}
+        image={Food4}
+        onPress={() => navigation.navigate('FoodDetail')}
+      />
+    </View>
+  );
+};
 
 const HomeTabSection = () => {
   const layout = useWindowDimensions();
@@ -87,7 +165,7 @@ const HomeTabSection = () => {
       renderScene={renderScene}
       onIndexChange={setIndex}
       initialLayout={{width: layout.width}}
-      style={{ backgroundColor:'white' }}
+      style={{backgroundColor: 'white'}}
     />
   );
 };

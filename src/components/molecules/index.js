@@ -6,6 +6,7 @@ import HomeProfile from "./HomeProfile";
 import Rating from "./Rating";
 import ListFoods from "./ListFoods";
 import Counter from "./Counter";
+import ItemValue from "./ItemValue";
 
 export {
     Header,
@@ -16,4 +17,5 @@ export {
     Rating,
     ListFoods,
     Counter,
+    ItemValue,
 }
