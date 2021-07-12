@@ -3,7 +3,7 @@ import { StyleSheet, Text, View} from 'react-native';
 import { Food4 } from '../../assets';
 import {Header, ItemValue, ListFoods, Button} from '../../components';
 
-const OrderSummary = () => {
+const OrderSummary = ({navigation}) => {
   return (
     <View>
       <Header
@@ -18,7 +18,7 @@ const OrderSummary = () => {
       <ItemValue label="Cherry Waffle" value="IDR 50.000"/>
       <ItemValue label="Driver" value="IDR 12.000"/>
       <ItemValue label="Tax 10%" value="IDR 10.000"/>
-      <ItemValue label="Total Price" value="IDR 100.000"/>
+      <ItemValue label="Total Price" value="IDR 100.000" valueColor="#1ABC9C"/>
       </View>
 
       <View style={styles.content}>
@@ -30,7 +30,7 @@ const OrderSummary = () => {
         <ItemValue label="City" value="Jakarta"/>
       </View>
       <View style={styles.button}>
-        <Button text="Checkout Now"/>
+        <Button text="Checkout Now" onPress={() => navigation.replace('SuccessOrder')}/>
       </View>
     </View>
   );

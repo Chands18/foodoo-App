@@ -1,11 +1,11 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
-const ItemValue = ({label, value}) => {
+const ItemValue = ({label, value, valueColor='black'}) => {
     return (
         <View style={styles.container}>
             <Text style={styles.label}>{label}</Text>
-            <Text style={styles.value}>{value}</Text>
+            <Text style={styles.value(valueColor)}>{value}</Text>
         </View>
     )
 }
@@ -22,9 +22,9 @@ const styles = StyleSheet.create({
         fontFamily:'Poppins-Regular',
         color:'gray'
     },
-    value:{
+    value: (color) => ({
         fontSize:14,
         fontFamily:'Poppins-Regular',
-        color:'black'
-    }
+        color:color 
+    })
 })
