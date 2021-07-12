@@ -3,7 +3,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import {IlSucorder} from '../../assets';
 import {Button, Gap} from '../../components';
 
-const SuccessOrder = () => {
+const SuccessOrder = ({navigation}) => {
   return (
     <View style={styles.page}>
       <IlSucorder />
@@ -25,7 +25,7 @@ const SuccessOrder = () => {
           text="View My Order"
           color="gray"
           textColor="white"
-          onPress={() => navigation.replace('MainApp')}
+          onPress={() => navigation.replace('MainApp', {screen:'Order'})}
         />
       </View>
     </View>
