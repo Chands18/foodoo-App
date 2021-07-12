@@ -81,6 +81,5 @@ const styles = StyleSheet.create({
         paddingBottom: 13,
         paddingHorizontal: 50,
         justifyContent: 'space-between',
-        backgroundColor:'skyblue'
       }
 });

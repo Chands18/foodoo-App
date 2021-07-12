@@ -12,7 +12,7 @@ import Button from '../../components/atoms/Button';
 import { Counter } from '../../components/molecules';
 
 
-const FoodDetail = () => {
+const FoodDetail = ({navigation}) => {
   return (
     <View style={styles.page}>
       <ImageBackground source={Food5} style={styles.cover}>
@@ -43,7 +43,7 @@ const FoodDetail = () => {
                 <Text style={styles.pricetotal}>IDR 50.000</Text>
             </View>
             <View style={styles.button}>
-                <Button text="Order Now"/>
+                <Button text="Order Now" onPress={() => navigation.navigate('OrderSummary')}/>
             </View>
         </View>
       </View>
