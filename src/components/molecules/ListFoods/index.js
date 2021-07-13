@@ -2,17 +2,83 @@ import React from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import Rating from '../Rating';
 
-const ListFoods = ({image, onPress, items, rating}) => {
+const ListFoods = ({
+  image,
+  onPress,
+  items,
+  rating,
+  price,
+  type,
+  name,
+  date,
+  status
+}) => {
+  const renderContent = () => {
+    switch (type) {
+      case 'product':
+        return (
+          <>
+            <View style={styles.content}>
+              <Text style={styles.title}>{name}</Text>
+              <Text style={styles.price}>IDR {price}</Text>
+            </View>
+            <Rating rating={rating} />
+          </>
+        );
+      case 'order-summary':
+        return (
+          <>
+            <View style={styles.content}>
+              <Text style={styles.title}>{name}</Text>
+              <Text style={styles.price}>IDR {price}</Text>
+            </View>
+            <Text style={styles.items}>{items} items</Text>
+          </>
+        );
+      case 'in-progress':
+        return (
+          <>
+            <View style={styles.content}>
+              <Text style={styles.title}>{name}</Text>
+              <Text style={styles.price}>
+                {items} items . IDR {price}
+              </Text>
+            </View>
+          </>
+        );
+      case 'past-orders':
+        return (
+          <>
+            <View style={styles.content}>
+              <Text style={styles.title}>{name}</Text>
+              <Text style={styles.price}>
+                {items} items . IDR {price}
+              </Text>
+            </View>
+              <View>
+                <Text style={styles.date}>{date}</Text>
+                <Text style={styles.status}>{status}</Text>
+              </View>
+          </>
+        );
+      default:
+        return (
+          <>
+            <View style={styles.content}>
+              <Text style={styles.title}>{name}</Text>
+              <Text style={styles.price}>IDR {price}</Text>
+            </View>
+            <Rating />
+          </>
+        );
+    }
+  };
+
   return (
     <TouchableOpacity activeOpacity={0.7} onPress={onPress}>
       <View style={styles.container}>
         <Image source={image} style={styles.image} />
-        <View style={styles.content}>
-          <Text style={styles.title}>Sop Buntut</Text>
-          <Text style={styles.price}>IDR 40.000</Text>
-        </View>
-        {items && !rating && <Text style={styles.items}>{items} items</Text>}
-        {rating && !items && <Rating />}
+        {renderContent()}
       </View>
     </TouchableOpacity>
   );
@@ -45,8 +111,17 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Regular',
     fontSize: 13,
   },
-  items:{
-    fontSize:13,
+  items: {
+    fontSize: 13,
+    fontFamily: 'Poppins-Regular',
+  },
+  date:{
+    fontSize:10,
+    fontFamily:'Poppins-Regular'
+  },
+  status:{
+    fontSize:10,
     fontFamily:'Poppins-Regular',
+    color:'#D9435E'
   }
 });

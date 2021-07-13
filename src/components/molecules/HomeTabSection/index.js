@@ -32,38 +32,59 @@ const renderTabBar = props => (
 const NewTaste = () => {
   const navigation = useNavigation();
   return (
-    <View style={{paddingTop: 8, paddingHorizontal:24}}>
+    <View style={{paddingTop: 8, paddingHorizontal: 24}}>
       <ListFoods
+        type="product"
+        name="Tongseng"
+        price="50.000"
         rating={3}
         image={Food1}
         onPress={() => navigation.navigate('FoodDetail')}
       />
       <ListFoods
+        type="product"
+        name="Tongseng"
+        price="50.000"
         rating={3}
         image={Food2}
         onPress={() => navigation.navigate('FoodDetail')}
       />
       <ListFoods
+        type="product"
+        name="Tongseng"
+        price="50.000"
         rating={3}
         image={Food3}
         onPress={() => navigation.navigate('FoodDetail')}
       />
       <ListFoods
+        type="product"
+        name="Tongseng"
+        price="50.000"
         rating={3}
         image={Food4}
         onPress={() => navigation.navigate('FoodDetail')}
       />
       <ListFoods
+        type="product"
+        name="Tongseng"
+        price="50.000"
         rating={3}
         image={Food4}
         onPress={() => navigation.navigate('FoodDetail')}
       />
       <ListFoods
+        type="product"
+        name="Tongseng"
+        price="50.000"
         rating={3}
         image={Food4}
         onPress={() => navigation.navigate('FoodDetail')}
       />
       <ListFoods
+        type="product"
+        name="Tongseng"
+        price="50.000"
         rating={3}
         image={Food4}
         onPress={() => navigation.navigate('FoodDetail')}
@@ -75,38 +96,59 @@ const NewTaste = () => {
 const Popular = () => {
   const navigation = useNavigation();
   return (
-    <View style={{paddingTop: 8, paddingHorizontal:24}}>
+    <View style={{paddingTop: 8, paddingHorizontal: 24}}>
       <ListFoods
+        type="product"
+        name="Tongseng"
+        price="50.000"
         rating={3}
         image={Food1}
         onPress={() => navigation.navigate('FoodDetail')}
       />
       <ListFoods
+        type="product"
+        name="Tongseng"
+        price="50.000"
         rating={3}
         image={Food2}
         onPress={() => navigation.navigate('FoodDetail')}
       />
       <ListFoods
+        type="product"
+        name="Tongseng"
+        price="50.000"
         rating={3}
         image={Food3}
         onPress={() => navigation.navigate('FoodDetail')}
       />
       <ListFoods
+        type="product"
+        name="Tongseng"
+        price="50.000"
         rating={3}
         image={Food4}
         onPress={() => navigation.navigate('FoodDetail')}
       />
       <ListFoods
+        type="product"
+        name="Tongseng"
+        price="50.000"
         rating={3}
         image={Food4}
         onPress={() => navigation.navigate('FoodDetail')}
       />
       <ListFoods
+        type="product"
+        name="Tongseng"
+        price="50.000"
         rating={3}
         image={Food4}
         onPress={() => navigation.navigate('FoodDetail')}
       />
       <ListFoods
+        type="product"
+        name="Tongseng"
+        price="50.000"
         rating={3}
         image={Food4}
         onPress={() => navigation.navigate('FoodDetail')}
@@ -118,23 +160,35 @@ const Popular = () => {
 const Recommended = () => {
   const navigation = useNavigation();
   return (
-    <View style={{paddingTop: 8, paddingHorizontal:24}}>
+    <View style={{paddingTop: 8, paddingHorizontal: 24}}>
       <ListFoods
+        type="product"
+        name="Tongseng"
+        price="50.000"
         rating={3}
         image={Food1}
         onPress={() => navigation.navigate('FoodDetail')}
       />
       <ListFoods
+        type="product"
+        name="Tongseng"
+        price="50.000"
         rating={3}
         image={Food2}
         onPress={() => navigation.navigate('FoodDetail')}
       />
       <ListFoods
+        type="product"
+        name="Tongseng"
+        price="50.000"
         rating={3}
         image={Food3}
         onPress={() => navigation.navigate('FoodDetail')}
       />
       <ListFoods
+        type="product"
+        name="Tongseng"
+        price="50.000"
         rating={3}
         image={Food4}
         onPress={() => navigation.navigate('FoodDetail')}
