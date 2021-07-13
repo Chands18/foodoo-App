@@ -36,7 +36,7 @@ const InProgress = () => {
       <ListFoods
         rating={3}
         image={Food1}
-        onPress={() => navigation.navigate('FoodDetail')}
+        onPress={() => navigation.navigate('OrderDetail')}
         type="in-progress"
         items={3}
         price="150.000"
@@ -45,7 +45,7 @@ const InProgress = () => {
       <ListFoods
         rating={3}
         image={Food2}
-        onPress={() => navigation.navigate('FoodDetail')}
+        onPress={() => navigation.navigate('OrderDetail')}
         type="in-progress"
         items={3}
         price="150.000"
@@ -54,7 +54,7 @@ const InProgress = () => {
       <ListFoods
         rating={3}
         image={Food3}
-        onPress={() => navigation.navigate('FoodDetail')}
+        onPress={() => navigation.navigate('OrderDetail')}
         type="in-progress"
         items={3}
         price="150.000"
@@ -63,7 +63,7 @@ const InProgress = () => {
       <ListFoods
         rating={3}
         image={Food4}
-        onPress={() => navigation.navigate('FoodDetail')}
+        onPress={() => navigation.navigate('OrderDetail')}
         type="in-progress"
         items={3}
         price="150.000"
@@ -72,7 +72,7 @@ const InProgress = () => {
       <ListFoods
         rating={3}
         image={Food4}
-        onPress={() => navigation.navigate('FoodDetail')}
+        onPress={() => navigation.navigate('OrderDetail')}
         type="in-progress"
         items={3}
         price="150.000"
@@ -81,7 +81,7 @@ const InProgress = () => {
       <ListFoods
         rating={3}
         image={Food4}
-        onPress={() => navigation.navigate('FoodDetail')}
+        onPress={() => navigation.navigate('OrderDetail')}
         type="in-progress"
         items={3}
         price="150.000"
@@ -90,7 +90,7 @@ const InProgress = () => {
       <ListFoods
         rating={3}
         image={Food4}
-        onPress={() => navigation.navigate('FoodDetail')}
+        onPress={() => navigation.navigate('OrderDetail')}
         type="in-progress"
         items={3}
         price="150.000"
@@ -107,7 +107,7 @@ const PastOrders = () => {
       <ListFoods
         rating={3}
         image={Food1}
-        onPress={() => navigation.navigate('FoodDetail')}
+        onPress={() => navigation.navigate('OrderDetail')}
         type="past-orders"
         items={3}
         price="150.000"
@@ -128,7 +128,7 @@ const PastOrders = () => {
       <ListFoods
         rating={3}
         image={Food3}
-        onPress={() => navigation.navigate('FoodDetail')}
+        onPress={() => navigation.navigate('OrderDetail')}
         type="past-orders"
         items={3}
         price="150.000"
@@ -138,7 +138,7 @@ const PastOrders = () => {
       <ListFoods
         rating={3}
         image={Food4}
-        onPress={() => navigation.navigate('FoodDetail')}
+        onPress={() => navigation.navigate('OrderDetail')}
         type="past-orders"
         items={3}
         price="150.000"
