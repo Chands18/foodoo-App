@@ -14,7 +14,7 @@ const SignIn = ({navigation}) => {
 
   const onSubmit = () => {
     console.log('form:', form);
-    axios.post('http://127.0.0.1:8000/api/login',form)
+    axios.post('http://192.168.0.143:8000/api/login',form)
     .then((res)  => {
       console.log('success', res)
     })

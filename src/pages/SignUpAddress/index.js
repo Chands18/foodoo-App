@@ -3,6 +3,7 @@ import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {Header, TextInput, Gap, Button, Select} from '../../components';
 import {useForm} from '../../utils';
 import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
 
 const SignUpAddress = ({navigation}) => {
   const [form, setForm] = useForm({
@@ -22,7 +23,14 @@ const SignUpAddress = ({navigation}) => {
       ...registerReducer
     }
     console.log('data Register: ', data)
-    // navigation.replace('SuccessSignUp')
+    axios.post('http://192.168.0.143:8000/api/register', data)
+    .then(res => {
+      console.log('data success:', res.data)
+      navigation.replace('SuccessSignUp')
+    })
+    .catch(err => {
+      console.log('signup error:', err)
+    })
   };
 
   return (
