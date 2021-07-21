@@ -4,6 +4,7 @@ import {Header, TextInput, Gap, Button, Select} from '../../components';
 import {useForm} from '../../utils';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
+import { showMessage, hideMessage } from "react-native-flash-message";
 
 const SignUpAddress = ({navigation}) => {
   const [form, setForm] = useForm({
@@ -26,13 +27,21 @@ const SignUpAddress = ({navigation}) => {
     axios.post('http://192.168.0.143:8000/api/register', data)
     .then(res => {
       console.log('data success:', res.data)
+      showMessage('Register success', 'info')
       navigation.replace('SuccessSignUp')
     })
     .catch(err => {
-      console.log('signup error:', err)
+      showToast('Error signup')
     })
   };
 
+  const showToast = (message, type) => {
+    showMessage({
+      message,
+      type: type === 'success' ? 'info' : 'danger',
+      backgroundColor: type === 'success' ? 'skyblue' : 'danger'
+    });
+  }
   return (
     <ScrollView contentContainerStyle={{ flexGrow:1 }}>
     <View style={styles.page}>
