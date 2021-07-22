@@ -1,8 +1,16 @@
-import React from 'react';
-import {StyleSheet, Text, View, ScrollView} from 'react-native';
+import React, {useState} from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
 import {Header, TextInput, Gap, Button} from '../../components';
 import {useSelector, useDispatch} from 'react-redux';
-import {useForm} from '../../utils';
+import {showMessage, useForm} from '../../utils';
+import {launchImageLibrary} from 'react-native-image-picker';
 
 const SignUp = ({navigation}) => {
   const [form, setForm] = useForm({
@@ -12,38 +20,73 @@ const SignUp = ({navigation}) => {
     // password_confirmation: '',
   });
 
+  const [photo, setPhoto] = useState('');
   const dispatch = useDispatch();
 
   const onSubmit = () => {
     console.log('form:', form);
-    dispatch({type: 'SET_REGISTER', value: form})
-    navigation.navigate('SignUpAddress')
+    dispatch({type: 'SET_REGISTER', value: form});
+    navigation.navigate('SignUpAddress');
+  };
+  const addPhoto = () => {
+    launchImageLibrary(
+      {quality: 0.5, maxWidth: 200, maxHeight: 200},
+      (response) => {
+        console.log('Response :', response.uri)
+        if (response.didCancel || response.assets[0].error) {
+          showMessage('Anda tidak memilih photo');
+        } else {
+          const source={uri:response.assets[0].uri};
+          const dataImage = {
+            uri: response.uri,
+            type: response.type,
+            name: response.fileName,
+          };
+          setPhoto(source);
+          console.log('uri :',photo)
+          // dispatch({type: 'SET_PHOTO', value: dataImage});
+          // dispatch({type: 'SET_UPLOAD_STATUS', value: true});
+        }
+      },
+    );
   };
 
   return (
-    <ScrollView contentContainerStyle={{ flexGrow:1 }}>
+    <ScrollView contentContainerStyle={{flexGrow: 1}}>
       <View style={styles.page}>
-        <Header title="Sign Up" subtitle="Register and Eat" onBack={() => {}} />
+        <Header
+          title="Sign Up"
+          subtitle="Register and Eat"
+          onBack={() => navigation.goBack()}
+        />
         <View style={styles.container}>
           <View style={styles.photo}>
-            <View style={styles.borderphoto}>
-              <View style={styles.photocontainer}>
-                <Text style={styles.addphoto}>Add Photo</Text>
+            <TouchableOpacity onPress={addPhoto}>
+              <View style={styles.borderphoto}>
+                <View style={styles.photocontainer}>
+                  {photo ? (
+                    <Image source={photo} style={styles.photocontainer} />
+                  ) : (
+                    <View style={styles.photocontainer}>
+                      <Text style={styles.addphoto}>Add Photo</Text>
+                    </View>
+                  )}
+                </View>
               </View>
-            </View>
+            </TouchableOpacity>
           </View>
           <TextInput
             label="Full Name"
             placeholder="Type your full name"
             value={form.name}
-            onChangeText={(value) => setForm('name', value)}
+            onChangeText={value => setForm('name', value)}
           />
           <Gap height={16} />
           <TextInput
             label="Email Address"
             placeholder="Type your email address"
             value={form.email}
-            onChangeText={(value) => setForm('email', value)}
+            onChangeText={value => setForm('email', value)}
           />
           <Gap height={16} />
           <TextInput
@@ -51,7 +94,7 @@ const SignUp = ({navigation}) => {
             placeholder="Your Password"
             secureTextEntry
             value={form.password}
-            onChangeText={(value) => setForm('password', value)}
+            onChangeText={value => setForm('password', value)}
           />
           <Gap height={24} />
           <Button text="Continue" onPress={onSubmit} />
@@ -75,7 +118,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   photocontainer: {
-    padding: 24,
+    justifyContent: 'center',
+    alignItems: 'center',
     width: 100,
     height: 100,
     borderRadius: 90,
