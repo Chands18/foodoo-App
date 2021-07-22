@@ -27,19 +27,21 @@ const SignUpAddress = ({navigation}) => {
     axios.post('http://192.168.0.143:8000/api/register', data)
     .then(res => {
       console.log('data success:', res.data)
-      showMessage('Register success', 'info')
+      dispatch({type: 'SET_LOADING', value: false})
+      showMessage('Register success', 'success')
       navigation.replace('SuccessSignUp')
     })
     .catch(err => {
-      showToast('Error signup')
+      console.log('signup error:', err.response.data.message);
+      dispatch({type: 'SET_LOADING', value: false});
+      showToast(err?.response?.data?.message);
     })
   };
 
   const showToast = (message, type) => {
     showMessage({
       message,
-      type: type === 'success' ? 'info' : 'danger',
-      backgroundColor: type === 'success' ? 'skyblue' : 'danger'
+      type: type === 'success' ? 'success' : 'danger',
     });
   }
   return (
