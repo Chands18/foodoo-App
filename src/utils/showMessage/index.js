@@ -4,6 +4,6 @@ import { showMessage as showToast, hideMessage } from "react-native-flash-messag
 export const showMessage = (message, type) => {
     showToast({
       message,
-      type: type === 'success' ? 'success' : 'danger',
+      type: type === 'success' ? 'info' : 'danger',
     });
   }
