@@ -3,7 +3,7 @@ import {showMessage, storeData} from '../../utils';
 import {setLoading} from './global';
 
 const API_HOST = {
-  url: 'http://192.168.0.143:8000/api',
+  url: 'https://ecanteen.rumahinternet.net/api',
 };
 
 export const signUpAction =
@@ -11,11 +11,12 @@ export const signUpAction =
     axios
       .post(`${API_HOST.url}/register`, dataRegister)
       .then(res => {
-        console.log('data success:', res.data);
+        const token = `${res.data.data.token_type} ${res.data.data.access_token} `;
         const profile = res.data.data.user;
-        const token = `${res.data.data.token_type} ${res.data.data.access_token}`;
-
-        storeData('token', {value: token});
+        storeData('userProfile', profile);
+        storeData('token', {
+          value: token,
+        });
 
         if (photoReducer.isUploadPhoto) {
           const photoForUpload = new FormData();
@@ -28,26 +29,24 @@ export const signUpAction =
               },
             })
             .then(resUpload => {
-              console.log('succes upload: ', resUpload);
-              profile.profile_photo_url = `http://192.168.0.143:8000/storage/${resUpload.data.data[0]}`
-              storeData('userprofile', profile);
-              navigation.reset({ index: 0, routes: [{name :'SuccessSignUp'}]});
+              profile.profile_photo_url = `https://ecanteen.rumahinternet.net/storage/${resUpload.data.data[0]}`;
+              storeData('userProfile', profile);
+              navigation.reset({index: 0, routes: [{name: 'SuccessSignUp'}]});
             })
+            // eslint-disable-next-line handle-callback-err
             .catch(err => {
-              console.log('upload gagal: ', err);
-              showMessage('Upload photo gagal');
-              navigation.reset({ index: 0, routes: [{name :'SuccessSignUp'}]});
+              showMessage('Upload photo tidak berhasil');
+              navigation.reset({index: 0, routes: [{name: 'SuccessSignUp'}]});
             });
         } else {
-            storeData('userprofile', profile);
-            navigation.reset({ index: 0, routes: [{name :'SuccessSignUp'}]});
+          storeData('userProfile', profile);
+          navigation.reset({index: 0, routes: [{name: 'SuccessSignUp'}]});
         }
+
         dispatch(setLoading(false));
-        
       })
       .catch(err => {
-        console.log('signup error:', err.response.data);
         dispatch(setLoading(false));
-        showMessage(err?.response?.data?.message);
+        showMessage(err?.response?.data?.data?.message);
       });
   };

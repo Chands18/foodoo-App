@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
 import {
+  ScrollView,
+  Image,
   StyleSheet,
   Text,
-  View,
-  ScrollView,
   TouchableOpacity,
-  Image,
+  View,
 } from 'react-native';
-import {Header, TextInput, Gap, Button} from '../../components';
-import {useSelector, useDispatch} from 'react-redux';
+import {useDispatch} from 'react-redux';
+import {Button, Gap, Header, TextInput} from '../../components';
 import {showMessage, useForm} from '../../utils';
 import {launchImageLibrary} from 'react-native-image-picker';
 
@@ -17,58 +17,56 @@ const SignUp = ({navigation}) => {
     name: '',
     email: '',
     password: '',
-    // password_confirmation: '',
   });
-
   const [photo, setPhoto] = useState('');
   const dispatch = useDispatch();
-
   const onSubmit = () => {
-    console.log('form:', form);
+    // console.log("form: ", form);
     dispatch({type: 'SET_REGISTER', value: form});
     navigation.navigate('SignUpAddress');
+    console.log('sign in data: ', form);
   };
   const addPhoto = () => {
     launchImageLibrary(
       {quality: 0.5, maxWidth: 200, maxHeight: 200},
-      (response) => {
-        console.log('Response :', response)
+      response => {
         if (response.didCancel || response.error) {
           showMessage('Anda tidak memilih photo');
+          console.log('sign up error: ', response.error);
         } else {
-          const source={uri:response.assets[0].uri};
+          const source = {uri: response.uri};
           const dataImage = {
             uri: response.uri,
             type: response.type,
             name: response.fileName,
           };
+          console.log('signup up: ', response);
+
           setPhoto(source);
-          console.log('uri :',photo)
           dispatch({type: 'SET_PHOTO', value: dataImage});
           dispatch({type: 'SET_UPLOAD_STATUS', value: true});
         }
       },
     );
   };
-
   return (
     <ScrollView contentContainerStyle={{flexGrow: 1}}>
       <View style={styles.page}>
         <Header
           title="Sign Up"
-          subtitle="Register and Eat"
+          subTitle="Register new and eat"
           onBack={() => navigation.goBack()}
         />
         <View style={styles.container}>
           <View style={styles.photo}>
             <TouchableOpacity onPress={addPhoto}>
-              <View style={styles.borderphoto}>
-                <View style={styles.photocontainer}>
+              <View style={styles.borderPhoto}>
+                <View style={styles.photoContainer}>
                   {photo ? (
-                    <Image source={photo} style={styles.photocontainer} />
+                    <Image source={photo} style={styles.photoContainer} />
                   ) : (
-                    <View style={styles.photocontainer}>
-                      <Text style={styles.addphoto}>Add Photo</Text>
+                    <View style={styles.photoContainer}>
+                      <Text style={styles.addPhoto}>Add Photo</Text>
                     </View>
                   )}
                 </View>
@@ -91,9 +89,9 @@ const SignUp = ({navigation}) => {
           <Gap height={16} />
           <TextInput
             label="Password"
-            placeholder="Your Password"
-            secureTextEntry
+            placeholder="Type your password"
             value={form.password}
+            secureTextEntry
             onChangeText={value => setForm('password', value)}
           />
           <Gap height={24} />
@@ -107,43 +105,38 @@ const SignUp = ({navigation}) => {
 export default SignUp;
 
 const styles = StyleSheet.create({
-  page: {
-    flex: 1,
-  },
+  page: {flex: 1},
   container: {
-    backgroundColor: 'ghostwhite',
+    backgroundColor: 'white',
     paddingHorizontal: 24,
     paddingVertical: 26,
     marginTop: 24,
     flex: 1,
   },
-  photocontainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 100,
-    height: 100,
-    borderRadius: 90,
-    backgroundColor: '#F0F0F0',
-  },
-  addphoto: {
+  addPhoto: {
     fontSize: 14,
-    fontFamily: 'Poppins-Light',
     color: '#8D92A3',
+    fontFamily: 'Poppins-Light',
     textAlign: 'center',
   },
-  borderphoto: {
+  photoContainer: {
+    width: 90,
+    height: 90,
+    borderRadius: 90,
+    padding: 24,
+    backgroundColor: '#F0F0F0',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  photo: {alignItems: 'center', marginTop: 26, marginBottom: 16},
+  borderPhoto: {
     borderWidth: 1,
     borderColor: '#8D92A3',
-    width: 120,
-    height: 120,
-    borderRadius: 120,
+    width: 110,
+    height: 110,
+    borderRadius: 110,
     borderStyle: 'dashed',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  photo: {
-    alignItems: 'center',
-    marginTop: 26,
-    marginBottom: 16,
   },
 });
