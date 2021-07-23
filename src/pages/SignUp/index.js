@@ -32,8 +32,8 @@ const SignUp = ({navigation}) => {
     launchImageLibrary(
       {quality: 0.5, maxWidth: 200, maxHeight: 200},
       (response) => {
-        console.log('Response :', response.assets[0].uri)
-        if (response.didCancel || response.assets[0].error) {
+        console.log('Response :', response)
+        if (response.didCancel || response.error) {
           showMessage('Anda tidak memilih photo');
         } else {
           const source={uri:response.assets[0].uri};
