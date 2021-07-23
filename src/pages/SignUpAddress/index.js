@@ -1,9 +1,9 @@
 import React from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
-import {Header, TextInput, Gap, Button, Select} from '../../components';
-import {useForm, showMessage} from '../../utils';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import axios from 'axios';
+import {Button, Gap, Header, Select, TextInput} from '../../components';
+import {setLoading, signUpAction} from '../../redux/action';
+import {useForm} from '../../utils';
 
 const SignUpAddress = ({navigation}) => {
   const [form, setForm] = useForm({
@@ -23,38 +23,8 @@ const SignUpAddress = ({navigation}) => {
       ...registerReducer,
     };
     console.log('data Register: ', data);
-    dispatch({type: 'SET_LOADING', value: true});
-    axios
-      .post('http://192.168.0.143:8000/api/register', data)
-      .then(res => {
-        console.log('data success:', res.data);
-        if (photoReducer.isUploadPhoto) {
-          const photoForUpload = new FormData();
-          photoForUpload.append('file', photoReducer);
-          axios
-            .post('http://192.168.0.143:8000/api/user/photo', photoForUpload, {
-              headers: {
-                Authorization: `${res.data.data.token_type} ${res.data.data.access_token}`,
-                'Content-Type': 'multipart/form-data',
-              },
-            })
-            .then(resUpload => {
-              console.log('succes upload: ', resUpload);
-            })
-            .catch(err => {
-              console.log('upload gagal: ', err);
-              showMessage('Upload photo gagal');
-            });
-        }
-        dispatch({type: 'SET_LOADING', value: false});
-        showMessage('Register success', 'success');
-        navigation.replace('SuccessSignUp');
-      })
-      .catch(err => {
-        console.log('signup error:', err.response.data);
-        dispatch({type: 'SET_LOADING', value: false});
-        showMessage(err?.response?.data?.message);
-      });
+    dispatch(setLoading(true));
+    dispatch(signUpAction(data, photoReducer, navigation));
   };
 
   return (
