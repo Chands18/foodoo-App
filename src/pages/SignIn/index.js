@@ -1,27 +1,20 @@
-import axios from 'axios';
-import React, {useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {Button, Gap, Header, TextInput} from '../../components';
-import {useForm} from '../../utils';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { Button, Gap, Header, TextInput } from '../../components';
+import { signInAction } from '../../redux/action';
+import { useForm } from '../../utils';
 
 const SignIn = ({navigation}) => {
-  // const [email, setEmail] = useState('');
-  // const [password, setPassword] = useState('');
   const [form, setForm] = useForm({
     email: '',
     password: '',
   });
 
+  const dispatch = useDispatch();
+
   const onSubmit = () => {
-    console.log('form:', form);
-    axios
-      .post('https://ecanteen.rumahinternet.net/api/login', form)
-      .then(res => {
-        console.log('success', res);
-      })
-      .catch(err => {
-        console.log('error', err);
-      });
+    dispatch(signInAction(form, navigation));
   };
   return (
     <View style={styles.page}>
