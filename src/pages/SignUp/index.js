@@ -21,10 +21,8 @@ const SignUp = ({navigation}) => {
   const [photo, setPhoto] = useState('');
   const dispatch = useDispatch();
   const onSubmit = () => {
-    // console.log("form: ", form);
     dispatch({type: 'SET_REGISTER', value: form});
     navigation.navigate('SignUpAddress');
-    console.log('sign in data: ', form);
   };
   const addPhoto = () => {
     launchImageLibrary(
@@ -32,16 +30,13 @@ const SignUp = ({navigation}) => {
       response => {
         if (response.didCancel || response.error) {
           showMessage('Anda tidak memilih photo');
-          console.log('sign up error: ', response.error);
         } else {
-          const source = {uri: response.uri};
+          const source = {uri: response.assets[0].uri};
           const dataImage = {
-            uri: response.uri,
-            type: response.type,
-            name: response.fileName,
+            uri: response.assets[0].uri,
+            type: response.assets[0].type,
+            name: response.assets[0].fileName,
           };
-          console.log('signup up: ', response);
-
           setPhoto(source);
           dispatch({type: 'SET_PHOTO', value: dataImage});
           dispatch({type: 'SET_UPLOAD_STATUS', value: true});
