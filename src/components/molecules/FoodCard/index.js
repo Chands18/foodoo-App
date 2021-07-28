@@ -1,9 +1,10 @@
 import React from 'react';
-import {StyleSheet, Text, View, Image} from 'react-native';
+import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import Rating from '../Rating';
 
-const FoodCard = ({image, name, rating}) => {
+const FoodCard = ({image, name, rating, onPress}) => {
   return (
+    <TouchableOpacity activeOpacity={0.8} onPress={onPress}>
     <View style={styles.container}>
       <Image style={styles.image} source={image} />
       <View style={styles.content}>
@@ -11,6 +12,7 @@ const FoodCard = ({image, name, rating}) => {
         <Rating number={rating} />
       </View>
     </View>
+    </TouchableOpacity>
   );
 };
 

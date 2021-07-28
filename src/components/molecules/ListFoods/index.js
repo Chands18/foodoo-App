@@ -21,7 +21,7 @@ const ListFoods = ({
           <>
             <View style={styles.content}>
               <Text style={styles.title}>{name}</Text>
-              <Number number={price}/>
+              <Number number={price} style={styles.price}/>
             </View>
             <Rating number={rating} />
           </>
@@ -31,7 +31,7 @@ const ListFoods = ({
           <>
             <View style={styles.content}>
               <Text style={styles.title}>{name}</Text>
-              <Text style={styles.price}>IDR {price}</Text>
+              <Number number={price} style={styles.price}/>
             </View>
             <Text style={styles.items}>{items} items</Text>
           </>
@@ -67,7 +67,7 @@ const ListFoods = ({
           <>
             <View style={styles.content}>
               <Text style={styles.title}>{name}</Text>
-              <Text style={styles.price}>IDR {price}</Text>
+              <Number number={price} style={styles.price}/>
             </View>
             <Rating />
           </>
@@ -111,6 +111,7 @@ const styles = StyleSheet.create({
   price: {
     fontFamily: 'Poppins-Regular',
     fontSize: 13,
+    fontWeight:'bold'
   },
   items: {
     fontSize: 13,
