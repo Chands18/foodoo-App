@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet, Text, View, useWindowDimensions} from 'react-native';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import {Food1, Food2, Food3, Food4} from '../../../assets';
 import ListFoods from '../ListFoods';
 import {useNavigation} from '@react-navigation/native';
+import {useDispatch, useSelector} from 'react-redux';
+import {getFoodDataByTypes} from '../../../redux/action';
 
 const renderTabBar = props => (
   <TabBar
@@ -31,64 +33,27 @@ const renderTabBar = props => (
 
 const NewTaste = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const {newTaste} = useSelector(state => state.homeReducer);
+
+  useEffect(() => {
+    dispatch(getFoodDataByTypes('new_food'));
+  }, []);
   return (
     <View style={{paddingTop: 8, paddingHorizontal: 24}}>
-      <ListFoods
-        type="product"
-        name="Tongseng"
-        price="50.000"
-        rating={3}
-        image={Food1}
-        onPress={() => navigation.navigate('FoodDetail')}
-      />
-      <ListFoods
-        type="product"
-        name="Tongseng"
-        price="50.000"
-        rating={3}
-        image={Food2}
-        onPress={() => navigation.navigate('FoodDetail')}
-      />
-      <ListFoods
-        type="product"
-        name="Tongseng"
-        price="50.000"
-        rating={3}
-        image={Food3}
-        onPress={() => navigation.navigate('FoodDetail')}
-      />
-      <ListFoods
-        type="product"
-        name="Tongseng"
-        price="50.000"
-        rating={3}
-        image={Food4}
-        onPress={() => navigation.navigate('FoodDetail')}
-      />
-      <ListFoods
-        type="product"
-        name="Tongseng"
-        price="50.000"
-        rating={3}
-        image={Food4}
-        onPress={() => navigation.navigate('FoodDetail')}
-      />
-      <ListFoods
-        type="product"
-        name="Tongseng"
-        price="50.000"
-        rating={3}
-        image={Food4}
-        onPress={() => navigation.navigate('FoodDetail')}
-      />
-      <ListFoods
-        type="product"
-        name="Tongseng"
-        price="50.000"
-        rating={3}
-        image={Food4}
-        onPress={() => navigation.navigate('FoodDetail')}
-      />
+      {newTaste.map(item => {
+        return (
+          <ListFoods
+            key={item.id}
+            type="product"
+            name={item.name}
+            price={item.price}
+            rating={item.rate}
+            image={{uri: item.picturePath}}
+            onPress={() => navigation.navigate('FoodDetail')}
+          />
+        );
+      })}
     </View>
   );
 };
