@@ -1,52 +1,123 @@
-import React from 'react';
+import axios from 'axios';
+import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
-import {Food4} from '../../assets';
-import {Header, ItemValue, ListFoods, Button, Gap} from '../../components';
+import {
+  Button,
+  Gap,
+  Header,
+  ItemValue,
+  ListFoods,
+  Loading,
+} from '../../components';
+import {getData} from '../../utils';
+import {WebView} from 'react-native-webview';
+import {API_HOST} from '../../config';
 
-const OrderSummary = ({navigation}) => {
+const OrderSummary = ({navigation, route}) => {
+  const {item, transaction, userProfile} = route.params;
+  const [token, setToken] = useState('');
+  const [isPaymentOpen, setIsPaymentOpen] = useState(false);
+  const [paymentURL, setPaymentURL] = useState('https://google.com');
+
+  useEffect(() => {
+    getData('token').then(res => {
+      console.log('token :', res);
+      setToken(res.value);
+    });
+  }, []);
+
+  const onCheckout = () => {
+    const data = {
+      food_id: item.id,
+      user_id: userProfile.id,
+      quantity: transaction.totalItem,
+      total: transaction.total,
+      status: 'PENDING',
+    };
+    console.log('Data nih: ', data);
+    axios
+      .post(`${API_HOST.url}/checkout`, data, {
+        headers: {
+          Authorization: token,
+        },
+      })
+      .then(res => {
+        console.log('checkout success :', res.data);
+        setIsPaymentOpen(true);
+        setPaymentURL(res.data.data.payment_url);
+      })
+      .catch(err => {
+        console.log('error checkout :', err.response);
+      });
+  };
+
+  const onNavChange = state => {
+    console.log('nav :', state);
+    const urlSuccess =
+      'http://example.com/?order_id=59&status_code=201&transaction_status=pending';
+    const titleWeb = 'Example Domain';
+    if (state.title === titleWeb) {
+      navigation.replace('SuccessOrder');
+    }
+  };
+  if (isPaymentOpen) {
+    return (
+      <>
+        <Header title="Payment" onBack={() => navigation.goBack()} />
+        <WebView
+          source={{uri: paymentURL}}
+          startInLoadingState={true}
+          renderLoading={() => <Loading />}
+          onNavigationStateChange={onNavChange}
+        />
+      </>
+    );
+  }
+
   return (
     <ScrollView>
       <Header
-        title="Payment"
+        title="Order Summary"
         subtitle="You deserve a better meal"
-        onBack={() => {}}
+        onBack={() => navigation.goBack()}
       />
       <View style={styles.content}>
         <Text style={styles.label}>Item Ordered</Text>
         <ListFoods
           type="order-summary"
-          name="Tongseng"
-          price="50.000"
-          items={20}
-          image={Food4}
-          items={20}
+          name={item.name}
+          price={item.price}
+          items={transaction.totalItem}
+          image={{uri: item.picturePath}}
         />
         <Text style={styles.label}>Detail Transaction</Text>
-        <ItemValue label="Cherry Waffle" value="IDR 50.000" />
-        <ItemValue label="Driver" value="IDR 12.000" />
-        <ItemValue label="Tax 10%" value="IDR 10.000" />
+        <ItemValue
+          label={item.name}
+          value={transaction.totalPrice}
+          type="currency"
+        />
+        <ItemValue label="Driver" value={transaction.driver} type="currency" />
+        <ItemValue label="Tax 10%" value={transaction.total} type="currency" />
         <ItemValue
           label="Total Price"
-          value="IDR 100.000"
+          value={transaction.total}
           valueColor="#1ABC9C"
+          type="currency"
         />
       </View>
 
       <View style={styles.content}>
         <Text style={styles.label}>Deliver To:</Text>
-        <ItemValue label="Name" value="Faridz Kurnia" />
-        <ItemValue label="Phone No." value="0897 5392 28495" />
-        <ItemValue label="Address" value="Radio Dalam" />
-        <ItemValue label="House No." value="8b" />
-        <ItemValue label="City" value="Jakarta" />
+        <ItemValue label="Name" value={userProfile.name} />
+        <ItemValue label="Phone No." value={userProfile.phoneNumber} />
+        <ItemValue label="Address" value={userProfile.address} />
+        <ItemValue label="House No." value={userProfile.houseNumber} />
+        <ItemValue label="City" value={userProfile.city} />
       </View>
       <View style={styles.button}>
-        <Button
-          text="Checkout Now"
-          onPress={() => navigation.replace('SuccessOrder')}
-        />
+        <Button text="Checkout Now" onPress={onCheckout} />
       </View>
-      <Gap height={40}/>
+      <Gap height={40} />
     </ScrollView>
   );
 };
