@@ -5,7 +5,7 @@ import {IcStarOff, IcStarOn} from '../../../assets';
 const Rating = ({number}) => {
   const renderStar = () => {
     let star = [];
-    for (let i = 1; i < 5; i++) {
+    for (let i = 1; i <= 5; i++) {
       if (i <= number) {
         star.push(<IcStarOn />);
       } else {
