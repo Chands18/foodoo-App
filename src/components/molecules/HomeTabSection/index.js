@@ -60,104 +60,54 @@ const NewTaste = () => {
 
 const Popular = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const {popular} = useSelector(state => state.homeReducer);
+
+  useEffect(() => {
+    dispatch(getFoodDataByTypes('popular'));
+  }, []);
   return (
     <View style={{paddingTop: 8, paddingHorizontal: 24}}>
-      <ListFoods
-        type="product"
-        name="Tongseng"
-        price="50.000"
-        rating={3}
-        image={Food1}
-        onPress={() => navigation.navigate('FoodDetail')}
-      />
-      <ListFoods
-        type="product"
-        name="Tongseng"
-        price="50.000"
-        rating={3}
-        image={Food2}
-        onPress={() => navigation.navigate('FoodDetail')}
-      />
-      <ListFoods
-        type="product"
-        name="Tongseng"
-        price="50.000"
-        rating={3}
-        image={Food3}
-        onPress={() => navigation.navigate('FoodDetail')}
-      />
-      <ListFoods
-        type="product"
-        name="Tongseng"
-        price="50.000"
-        rating={3}
-        image={Food4}
-        onPress={() => navigation.navigate('FoodDetail')}
-      />
-      <ListFoods
-        type="product"
-        name="Tongseng"
-        price="50.000"
-        rating={3}
-        image={Food4}
-        onPress={() => navigation.navigate('FoodDetail')}
-      />
-      <ListFoods
-        type="product"
-        name="Tongseng"
-        price="50.000"
-        rating={3}
-        image={Food4}
-        onPress={() => navigation.navigate('FoodDetail')}
-      />
-      <ListFoods
-        type="product"
-        name="Tongseng"
-        price="50.000"
-        rating={3}
-        image={Food4}
-        onPress={() => navigation.navigate('FoodDetail')}
-      />
+      {popular.map(item => {
+        return (
+          <ListFoods
+            key={item.id}
+            type="product"
+            name={item.name}
+            price={item.price}
+            rating={item.rate}
+            image={{uri: item.picturePath}}
+            onPress={() => navigation.navigate('FoodDetail')}
+          />
+        );
+      })}
     </View>
   );
 };
 
 const Recommended = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const {recommended} = useSelector(state => state.homeReducer);
+
+  useEffect(() => {
+    dispatch(getFoodDataByTypes('recommended'));
+  }, []);
   return (
     <View style={{paddingTop: 8, paddingHorizontal: 24}}>
-      <ListFoods
-        type="product"
-        name="Tongseng"
-        price="50.000"
-        rating={3}
-        image={Food1}
-        onPress={() => navigation.navigate('FoodDetail')}
-      />
-      <ListFoods
-        type="product"
-        name="Tongseng"
-        price="50.000"
-        rating={3}
-        image={Food2}
-        onPress={() => navigation.navigate('FoodDetail')}
-      />
-      <ListFoods
-        type="product"
-        name="Tongseng"
-        price="50.000"
-        rating={3}
-        image={Food3}
-        onPress={() => navigation.navigate('FoodDetail')}
-      />
-      <ListFoods
-        type="product"
-        name="Tongseng"
-        price="50.000"
-        rating={3}
-        image={Food4}
-        onPress={() => navigation.navigate('FoodDetail')}
-      />
+      {recommended.map(item => {
+        return (
+          <ListFoods
+            key={item.id}
+            type="product"
+            name={item.name}
+            price={item.price}
+            rating={item.rate}
+            image={{uri: item.picturePath}}
+            onPress={() => navigation.navigate('FoodDetail')}
+          />
+        );
+      })}
     </View>
   );
 };
