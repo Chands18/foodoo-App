@@ -1,3 +1,4 @@
+import { NavigationHelpersContext } from '@react-navigation/native';
 import React, {useEffect} from 'react';
 import {StyleSheet, ScrollView, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
@@ -5,7 +6,7 @@ import {Food1, Food2, Food4} from '../../assets';
 import {FoodCard, Gap, HomeProfile, HomeTabSection} from '../../components';
 import {getFoodData} from '../../redux/action';
 
-const Home = () => {
+const Home = ({navigation}) => {
   const dispatch = useDispatch();
   const {food} = useSelector(state => state.homeReducer);
 
@@ -26,6 +27,7 @@ const Home = () => {
                   name={itemFood.name}
                   image={{uri: itemFood.picturePath}}
                   rating={itemFood.rate}
+                  onPress={() => navigation.navigate('FoodDetail',itemFood)}
                 />
               );
             })}
