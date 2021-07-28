@@ -1,27 +1,40 @@
-import React from 'react';
-import { StyleSheet, ScrollView, View } from 'react-native';
-import { Food1, Food2, Food4 } from '../../assets';
-import { FoodCard, Gap, HomeProfile, HomeTabSection } from '../../components';
+import React, {useEffect} from 'react';
+import {StyleSheet, ScrollView, View} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import {Food1, Food2, Food4} from '../../assets';
+import {FoodCard, Gap, HomeProfile, HomeTabSection} from '../../components';
+import {getFoodData} from '../../redux/action';
 
 const Home = () => {
-  return (
+  const dispatch = useDispatch();
+  const {food} = useSelector(state => state.homeReducer);
 
-      <View style={styles.page}>
-        <HomeProfile />
-        <View>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <View style={styles.foodcard}>
-              <Gap width={24} />
-              <FoodCard image={Food1} />
-              <FoodCard image={Food2} />
-              <FoodCard image={Food4} />
-            </View>
-          </ScrollView>
-        </View>
-        <View style={styles.tabcontainer}>
-          <HomeTabSection />
-        </View>
+  useEffect(() => {
+    dispatch(getFoodData());
+  });
+  return (
+    <View style={styles.page}>
+      <HomeProfile />
+      <View>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <View style={styles.foodcard}>
+            <Gap width={24} />
+            {food.map(itemFood => {
+              return (
+                <FoodCard
+                  name={itemFood.name}
+                  image={{uri: itemFood.picturePath}}
+                  rating={itemFood.rate}
+                />
+              );
+            })}
+          </View>
+        </ScrollView>
       </View>
+      <View style={styles.tabcontainer}>
+        <HomeTabSection />
+      </View>
+    </View>
   );
 };
 
