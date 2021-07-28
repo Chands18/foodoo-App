@@ -1,30 +1,35 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React from 'react';
+import {StyleSheet, Text, View} from 'react-native';
+import Number from '../Number';
 
-const ItemValue = ({label, value, valueColor='black'}) => {
-    return (
-        <View style={styles.container}>
-            <Text style={styles.label}>{label}</Text>
-            <Text style={styles.value(valueColor)}>{value}</Text>
-        </View>
-    )
-}
+const ItemValue = ({label, value, valueColor = 'black', type}) => {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.label}>{label}</Text>
+      {type === 'currency' ? (
+        <Number number={value} style={styles.value(valueColor)} />
+      ) : (
+        <Text style={styles.value(valueColor)}>{value}</Text>
+      )}
+    </View>
+  );
+};
 
-export default ItemValue
+export default ItemValue;
 
 const styles = StyleSheet.create({
-    container:{
-        flexDirection:'row',
-        justifyContent:'space-between',
-    },
-    label:{
-        fontSize:14,
-        fontFamily:'Poppins-Regular',
-        color:'gray'
-    },
-    value: (color) => ({
-        fontSize:14,
-        fontFamily:'Poppins-Regular',
-        color:color 
-    })
-})
+  container: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  label: {
+    fontSize: 14,
+    fontFamily: 'Poppins-Regular',
+    color: 'gray',
+  },
+  value: color => ({
+    fontSize: 14,
+    fontFamily: 'Poppins-Regular',
+    color: color,
+  }),
+});
