@@ -12,7 +12,7 @@ const ListFoods = ({
   type,
   name,
   date,
-  status
+  status,
 }) => {
   const renderContent = () => {
     switch (type) {
@@ -21,7 +21,7 @@ const ListFoods = ({
           <>
             <View style={styles.content}>
               <Text style={styles.title}>{name}</Text>
-              <Number number={price} style={styles.price}/>
+              <Number number={price} style={styles.price} />
             </View>
             <Rating number={rating} />
           </>
@@ -31,7 +31,7 @@ const ListFoods = ({
           <>
             <View style={styles.content}>
               <Text style={styles.title}>{name}</Text>
-              <Number number={price} style={styles.price}/>
+              <Number number={price} style={styles.price} />
             </View>
             <Text style={styles.items}>{items} items</Text>
           </>
@@ -41,25 +41,30 @@ const ListFoods = ({
           <>
             <View style={styles.content}>
               <Text style={styles.title}>{name}</Text>
-              <Text style={styles.price}>
-                {items} items . IDR {price}
-              </Text>
+              <View style={styles.row}>
+                <Text style={styles.price}>{items} items</Text>
+                <View style={styles.dot} />
+                <Number number={price} style={styles.price} />
+              </View>
             </View>
           </>
         );
       case 'past-orders':
+        const formatedDate = new Date(date).toDateString();
         return (
           <>
             <View style={styles.content}>
               <Text style={styles.title}>{name}</Text>
-              <Text style={styles.price}>
-                {items} items . IDR {price}
-              </Text>
-            </View>
-              <View>
-                <Text style={styles.date}>{date}</Text>
-                <Text style={styles.status}>{status}</Text>
+              <View style={styles.row}>
+                <Text style={styles.price}>{items} items</Text>
+                <View style={styles.dot} />
+                <Number number={price} style={styles.price} />
               </View>
+            </View>
+            <View>
+              <Text style={styles.date}>{formatedDate}</Text>
+              <Text style={styles.status(status)}>{status}</Text>
+            </View>
           </>
         );
       default:
@@ -67,7 +72,7 @@ const ListFoods = ({
           <>
             <View style={styles.content}>
               <Text style={styles.title}>{name}</Text>
-              <Number number={price} style={styles.price}/>
+              <Number number={price} style={styles.price} />
             </View>
             <Rating />
           </>
@@ -111,19 +116,30 @@ const styles = StyleSheet.create({
   price: {
     fontFamily: 'Poppins-Regular',
     fontSize: 13,
-    fontWeight:'bold'
+    fontWeight: 'bold',
   },
   items: {
     fontSize: 13,
     fontFamily: 'Poppins-Regular',
   },
-  date:{
-    fontSize:10,
-    fontFamily:'Poppins-Regular'
+  date: {
+    fontSize: 10,
+    fontFamily: 'Poppins-Regular',
   },
-  status:{
-    fontSize:10,
-    fontFamily:'Poppins-Regular',
-    color:'#D9435E'
-  }
+  status: status => ({
+    fontSize: 10,
+    fontFamily: 'Poppins-Regular',
+    color: status === 'CANCELLED' ? '#D9435E' : '#1ABC9C',
+  }),
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  dot: {
+    width: 3,
+    height: 3,
+    borderRadius: 3,
+    backgroundColor: '#8D92A3',
+    marginHorizontal: 4,
+  },
 });

@@ -1,30 +1,22 @@
 import axios from 'axios';
-import React, {useEffect, useState} from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import React, { useState } from 'react';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { WebView } from 'react-native-webview';
 import {
   Button,
   Gap,
   Header,
   ItemValue,
   ListFoods,
-  Loading,
+  Loading
 } from '../../components';
-import {getData} from '../../utils';
-import {WebView} from 'react-native-webview';
-import {API_HOST} from '../../config';
+import { API_HOST } from '../../config';
+import { getData } from '../../utils';
 
 const OrderSummary = ({navigation, route}) => {
   const {item, transaction, userProfile} = route.params;
-  const [token, setToken] = useState('');
   const [isPaymentOpen, setIsPaymentOpen] = useState(false);
   const [paymentURL, setPaymentURL] = useState('https://google.com');
-
-  useEffect(() => {
-    getData('token').then(res => {
-      console.log('token :', res);
-      setToken(res.value);
-    });
-  }, []);
 
   const onCheckout = () => {
     const data = {
@@ -34,21 +26,22 @@ const OrderSummary = ({navigation, route}) => {
       total: transaction.total,
       status: 'PENDING',
     };
-    console.log('Data nih: ', data);
-    axios
-      .post(`${API_HOST.url}/checkout`, data, {
-        headers: {
-          Authorization: token,
-        },
-      })
-      .then(res => {
-        console.log('checkout success :', res.data);
-        setIsPaymentOpen(true);
-        setPaymentURL(res.data.data.payment_url);
-      })
-      .catch(err => {
-        console.log('error checkout :', err.response);
-      });
+    getData('token').then(resToken => {
+      axios
+        .post(`${API_HOST.url}/checkout`, data, {
+          headers: {
+            Authorization: resToken.value,
+          },
+        })
+        .then(res => {
+          console.log('checkout success :', res.data);
+          setIsPaymentOpen(true);
+          setPaymentURL(res.data.data.payment_url);
+        })
+        .catch(err => {
+          console.log('error checkout :', err.response);
+        });
+    });
   };
 
   const onNavChange = state => {
@@ -57,7 +50,7 @@ const OrderSummary = ({navigation, route}) => {
       'http://example.com/?order_id=59&status_code=201&transaction_status=pending';
     const titleWeb = 'Example Domain';
     if (state.title === titleWeb) {
-      navigation.replace('SuccessOrder');
+      navigation.reset({index: 0, routes: [{name: 'SuccessOrder'}]});
     }
   };
   if (isPaymentOpen) {

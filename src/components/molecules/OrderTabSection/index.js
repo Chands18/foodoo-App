@@ -1,9 +1,16 @@
-import React from 'react';
-import {StyleSheet, Text, View, useWindowDimensions} from 'react-native';
-import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
-import {Food1, Food2, Food3, Food4} from '../../../assets';
-import ListFoods from '../ListFoods';
 import {useNavigation} from '@react-navigation/native';
+import React, {useEffect} from 'react';
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  useWindowDimensions,
+  View,
+} from 'react-native';
+import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
+import {useDispatch, useSelector} from 'react-redux';
+import {getInProgress, getPastOrders} from '../../../redux/action';
+import ListFoods from '../ListFoods';
 
 const renderTabBar = props => (
   <TabBar
@@ -31,130 +38,56 @@ const renderTabBar = props => (
 
 const InProgress = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const {inProgress} = useSelector(state => state.orderReducer);
+  useEffect(() => {
+    dispatch(getInProgress());
+  }, [dispatch]);
   return (
-    <View style={{paddingTop: 8, paddingHorizontal:24}}>
-      <ListFoods
-        rating={3}
-        image={Food1}
-        onPress={() => navigation.navigate('OrderDetail')}
-        type="in-progress"
-        items={3}
-        price="150.000"
-        name="Tongseng"
-      />
-      <ListFoods
-        rating={3}
-        image={Food2}
-        onPress={() => navigation.navigate('OrderDetail')}
-        type="in-progress"
-        items={3}
-        price="150.000"
-        name="Tongseng"
-      />
-      <ListFoods
-        rating={3}
-        image={Food3}
-        onPress={() => navigation.navigate('OrderDetail')}
-        type="in-progress"
-        items={3}
-        price="150.000"
-        name="Tongseng"
-      />
-      <ListFoods
-        rating={3}
-        image={Food4}
-        onPress={() => navigation.navigate('OrderDetail')}
-        type="in-progress"
-        items={3}
-        price="150.000"
-        name="Tongseng"
-      />
-      <ListFoods
-        rating={3}
-        image={Food4}
-        onPress={() => navigation.navigate('OrderDetail')}
-        type="in-progress"
-        items={3}
-        price="150.000"
-        name="Tongseng"
-      />
-      <ListFoods
-        rating={3}
-        image={Food4}
-        onPress={() => navigation.navigate('OrderDetail')}
-        type="in-progress"
-        items={3}
-        price="150.000"
-        name="Tongseng"
-      />
-      <ListFoods
-        rating={3}
-        image={Food4}
-        onPress={() => navigation.navigate('OrderDetail')}
-        type="in-progress"
-        items={3}
-        price="150.000"
-        name="Tongseng"
-      />
-    </View>
+    <ScrollView>
+      <View style={{paddingTop: 8, paddingHorizontal: 24}}>
+        {inProgress.map(order => {
+          return (
+            <ListFoods
+              key={order.id}
+              image={{uri: order.food.picturePath}}
+              onPress={() => navigation.navigate('OrderDetail')}
+              type="in-progress"
+              items={order.quantity}
+              price={order.total}
+              name={order.food.name}
+            />
+          );
+        })}
+      </View>
+    </ScrollView>
   );
 };
 
 const PastOrders = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const {pastOrders} = useSelector(state => state.orderReducer);
+  useEffect(() => {
+    dispatch(getPastOrders());
+  }, []);
   return (
-    <View style={{paddingTop: 8, paddingHorizontal:24}}>
-      <ListFoods
-        rating={3}
-        image={Food1}
-        onPress={() => navigation.navigate('OrderDetail')}
-        type="past-orders"
-        items={3}
-        price="150.000"
-        name="Tongseng"
-        date="July 12 , 13.00"
-        status="Cancel"
-      />
-      <ListFoods
-        rating={3}
-        image={Food2}
-        onPress={() => navigation.navigate('FoodDetail')}
-        type="past-orders"
-        items={3}
-        price="150.000"
-        name="Tongseng"
-        date="July 12 , 13.00"
-      />
-      <ListFoods
-        rating={3}
-        image={Food3}
-        onPress={() => navigation.navigate('OrderDetail')}
-        type="past-orders"
-        items={3}
-        price="150.000"
-        name="Tongseng"
-        date="July 12 , 13.00"
-      />
-      <ListFoods
-        rating={3}
-        image={Food4}
-        onPress={() => navigation.navigate('OrderDetail')}
-        type="past-orders"
-        items={3}
-        price="150.000"
-        name="Tongseng"
-        date="July 12 , 13.00"
-      />
-      <ListFoods
-        rating={3}
-        image={Food4}
-        onPress={() => navigation.navigate('FoodDetail')}
-        type="past-orders"
-        items={3}
-        price="150.000"
-        name="Tongseng"
-        date="July 12 , 13.00"
-      />
+    <View style={{paddingTop: 8, paddingHorizontal: 24}}>
+      {pastOrders.map(order => {
+        return (
+          <ListFoods
+            key={order.id}
+            image={{uri: order.food.picturePath}}
+            onPress={() => navigation.navigate('OrderDetail')}
+            type="past-orders"
+            items={order.quantity}
+            price={order.total}
+            name={order.food.name}
+            date={order.created_at}
+            status={order.status}
+          />
+        );
+      })}
     </View>
   );
 };
