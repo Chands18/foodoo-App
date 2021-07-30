@@ -1,5 +1,11 @@
 import React, {useEffect} from 'react';
-import {StyleSheet, Text, View, useWindowDimensions} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  useWindowDimensions,
+  ScrollView,
+} from 'react-native';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import {Food1, Food2, Food3, Food4} from '../../../assets';
 import ListFoods from '../ListFoods';
@@ -10,7 +16,7 @@ import {getFoodDataByTypes} from '../../../redux/action';
 const renderTabBar = props => (
   <TabBar
     {...props}
-    indicatorStyle={{backgroundColor: 'black', height: 3}}
+    indicatorStyle={{backgroundColor: 'skyblue', height: 3}}
     style={{
       backgroundColor: 'white',
       elevation: 0,
@@ -40,21 +46,23 @@ const NewTaste = () => {
     dispatch(getFoodDataByTypes('new_food'));
   }, []);
   return (
-    <View style={{paddingTop: 8, paddingHorizontal: 24}}>
-      {newTaste.map(item => {
-        return (
-          <ListFoods
-            key={item.id}
-            type="product"
-            name={item.name}
-            price={item.price}
-            rating={item.rate}
-            image={{uri: item.picturePath}}
-            onPress={() => navigation.navigate('FoodDetail', item)}
-          />
-        );
-      })}
-    </View>
+    <ScrollView>
+      <View style={{paddingTop: 8, paddingHorizontal: 24}}>
+        {newTaste.map(item => {
+          return (
+            <ListFoods
+              key={item.id}
+              type="product"
+              name={item.name}
+              price={item.price}
+              rating={item.rate}
+              image={{uri: item.picturePath}}
+              onPress={() => navigation.navigate('FoodDetail', item)}
+            />
+          );
+        })}
+      </View>
+    </ScrollView>
   );
 };
 
@@ -67,21 +75,23 @@ const Popular = () => {
     dispatch(getFoodDataByTypes('popular'));
   }, []);
   return (
-    <View style={{paddingTop: 8, paddingHorizontal: 24}}>
-      {popular.map(item => {
-        return (
-          <ListFoods
-            key={item.id}
-            type="product"
-            name={item.name}
-            price={item.price}
-            rating={item.rate}
-            image={{uri: item.picturePath}}
-            onPress={() => navigation.navigate('FoodDetail', item)}
-          />
-        );
-      })}
-    </View>
+    <ScrollView>
+      <View style={{paddingTop: 8, paddingHorizontal: 24}}>
+        {popular.map(item => {
+          return (
+            <ListFoods
+              key={item.id}
+              type="product"
+              name={item.name}
+              price={item.price}
+              rating={item.rate}
+              image={{uri: item.picturePath}}
+              onPress={() => navigation.navigate('FoodDetail', item)}
+            />
+          );
+        })}
+      </View>
+    </ScrollView>
   );
 };
 
@@ -94,21 +104,23 @@ const Recommended = () => {
     dispatch(getFoodDataByTypes('recommended'));
   }, []);
   return (
-    <View style={{paddingTop: 8, paddingHorizontal: 24}}>
-      {recommended.map(item => {
-        return (
-          <ListFoods
-            key={item.id}
-            type="product"
-            name={item.name}
-            price={item.price}
-            rating={item.rate}
-            image={{uri: item.picturePath}}
-            onPress={() => navigation.navigate('FoodDetail', item)}
-          />
-        );
-      })}
-    </View>
+    <ScrollView>
+      <View style={{paddingTop: 8, paddingHorizontal: 24}}>
+        {recommended.map(item => {
+          return (
+            <ListFoods
+              key={item.id}
+              type="product"
+              name={item.name}
+              price={item.price}
+              rating={item.rate}
+              image={{uri: item.picturePath}}
+              onPress={() => navigation.navigate('FoodDetail', item)}
+            />
+          );
+        })}
+      </View>
+    </ScrollView>
   );
 };
 
