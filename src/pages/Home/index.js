@@ -1,6 +1,6 @@
 import { NavigationHelpersContext } from '@react-navigation/native';
 import React, {useEffect} from 'react';
-import {StyleSheet, ScrollView, View} from 'react-native';
+import {StyleSheet, ScrollView, View, StatusBar} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {Food1, Food2, Food4} from '../../assets';
 import {FoodCard, Gap, HomeProfile, HomeTabSection} from '../../components';
@@ -15,6 +15,7 @@ const Home = ({navigation}) => {
   });
   return (
     <View style={styles.page}>
+      <StatusBar backgroundColor="skyblue"/>
       <HomeProfile />
       <View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
