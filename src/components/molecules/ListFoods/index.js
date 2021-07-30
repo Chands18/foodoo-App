@@ -74,7 +74,7 @@ const ListFoods = ({
               <Text style={styles.title}>{name}</Text>
               <Number number={price} style={styles.price} />
             </View>
-            <Rating />
+            <Rating number={rating} />
           </>
         );
     }

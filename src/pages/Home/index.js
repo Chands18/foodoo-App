@@ -1,10 +1,8 @@
-import { NavigationHelpersContext } from '@react-navigation/native';
-import React, {useEffect} from 'react';
-import {StyleSheet, ScrollView, View, StatusBar} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
-import {Food1, Food2, Food4} from '../../assets';
-import {FoodCard, Gap, HomeProfile, HomeTabSection} from '../../components';
-import {getFoodData} from '../../redux/action';
+import React, { useEffect, useState } from 'react';
+import { ScrollView, StatusBar, StyleSheet, View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { FoodCard, Gap, HomeProfile, HomeTabSection, SearchBar } from '../../components';
+import { getFoodData } from '../../redux/action';
 
 const Home = ({navigation}) => {
   const dispatch = useDispatch();
@@ -13,11 +11,14 @@ const Home = ({navigation}) => {
   useEffect(() => {
     dispatch(getFoodData());
   });
+
+  const [value, setValue] = useState('');
   return (
     <View style={styles.page}>
       <StatusBar backgroundColor="skyblue"/>
       <HomeProfile />
       <View>
+      <SearchBar value={value} placeholder="Cari apa?" type="clickOnly" />
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <View style={styles.foodcard}>
             <Gap width={24} />
