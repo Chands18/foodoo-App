@@ -1,5 +1,6 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import {StyleSheet, Text, View, Image} from 'react-native';
+import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import {ProfileDummy} from '../../../assets';
 import { getData } from '../../../utils';
 
@@ -11,13 +12,16 @@ const HomeProfile = () => {
       setPhoto({uri: res.profile_photo_url})
     })
   },[])
+  const navigation = useNavigation();
   return (
     <View style={styles.profilecontainer}>
       <View>
         <Text style={styles.appname}>foodoo</Text>
         <Text style={styles.desc}>Let's get some foods</Text>
       </View>
+      <TouchableOpacity onPress={() => navigation.navigate('Profile') }>
       <Image source={photo} style={styles.profile} />
+      </TouchableOpacity>
     </View>
   );
 };
