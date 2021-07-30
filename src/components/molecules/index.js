@@ -13,6 +13,7 @@ import ProfileTabSection from "./ProfileTabSection";
 import ListProfile from "./ListProfile";
 import Loading from "./Loading";
 import Number from "./Number";
+import SearchBar from "./SearchBar";
 
 export {
     Header,
@@ -30,4 +31,5 @@ export {
     ListProfile,
     Loading,
     Number,
+    SearchBar,
 }
